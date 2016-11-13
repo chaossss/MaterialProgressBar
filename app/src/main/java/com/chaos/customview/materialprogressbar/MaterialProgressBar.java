@@ -5,7 +5,6 @@ import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
 import android.content.Context;
-import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Paint;
 import android.graphics.drawable.ClipDrawable;
@@ -14,6 +13,7 @@ import android.graphics.drawable.LayerDrawable;
 import android.graphics.drawable.ShapeDrawable;
 import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.animation.AccelerateInterpolator;
@@ -28,7 +28,7 @@ public class MaterialProgressBar extends ProgressBar {
 
     private Animator animator = null;
 
-    private final int duration;
+    private final int duration, repeatMode;
 
     public MaterialProgressBar(Context context) {
         this(context, null, -1);
@@ -49,12 +49,12 @@ public class MaterialProgressBar extends ProgressBar {
             progressColour = ta.getColor(R.styleable.MaterialProgressBar_progressColour, 0);
             int defaultDuration = context.getResources().getInteger(android.R.integer.config_mediumAnimTime);
             duration = ta.getInteger(R.styleable.MaterialProgressBar_duration, defaultDuration);
+            repeatMode = ta.getInteger(R.styleable.MaterialProgressBar_repeatMode, ValueAnimator.RESTART);
         } finally {
             ta.recycle();
         }
-        Resources resources = context.getResources();
-        //noinspection deprecation
-        setProgressDrawable(resources.getDrawable(android.R.drawable.progress_horizontal));
+
+        setProgressDrawable(ContextCompat.getDrawable(context, android.R.drawable.progress_horizontal));
         createIndeterminateProgressDrawable(backgroundColour, progressColour);
         setMax(INDETERMINATE_MAX);
         super.setIndeterminate(false);
@@ -115,7 +115,7 @@ public class MaterialProgressBar extends ProgressBar {
         ObjectAnimator progressAnimator = ObjectAnimator.ofInt(this, propertyName, 0, INDETERMINATE_MAX);
         progressAnimator.setInterpolator(interpolator);
         progressAnimator.setDuration(duration);
-        progressAnimator.setRepeatMode(ValueAnimator.RESTART);
+        progressAnimator.setRepeatMode(repeatMode);
         progressAnimator.setRepeatCount(ValueAnimator.INFINITE);
         return progressAnimator;
     }

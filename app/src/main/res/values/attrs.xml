@@ -2,8 +2,12 @@
 <resources>
   <declare-styleable name="MaterialProgressBar">
     <attr name="progressColour" format="color" />
-    <attr name="secondaryProgressColour" format="color" />
+    <!--<attr name="secondaryProgressColour" format="color" />-->
     <attr name="backgroundColour" format="color" />
     <attr name="duration" format="integer" />
+    <attr name="repeatMode" format="enum">
+      <enum name="restart" value="1"/>
+      <enum name="reverse" value="2"/>
+    </attr>
   </declare-styleable>
 </resources>
