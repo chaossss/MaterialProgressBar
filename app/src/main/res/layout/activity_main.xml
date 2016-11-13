@@ -17,7 +17,8 @@
         android:visibility="visible"
         app:duration="2000"
         app:progressColour="@color/sa_accent"
-        app:backgroundColour="@color/sa_accent_transparent" />
+        app:backgroundColour="@color/sa_accent_transparent"
+        app:repeatMode="restart"/>
 
     <ProgressBar
         style="@style/Base.Widget.AppCompat.ProgressBar.Horizontal"
